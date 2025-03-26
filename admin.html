@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة صيدلية</title>
+</head>
+
+<body>
+    <h1>إضافة صيدلية جديدة</h1>
+    <form id="pharmacyForm">
+        <label>اسم الصيدلية:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>العنوان:</label>
+        <input type="text" id="address" required><br><br>
+
+        <label>الهاتف:</label>
+        <input type="text" id="phone" required><br><br>
+
+        <label>رابط الخريطة:</label>
+        <input type="url" id="map" required><br><br>
+
+        <button type="submit">حفظ</button>
+    </form>
+
+    <script>
+        document.querySelector('#pharmacyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                name: document.querySelector('#name').value,
+                address: document.querySelector('#address').value,
+                phone: document.querySelector('#phone').value,
+                map: document.querySelector('#map').value
+            };
+
+            // ✅ ضع رابط Google Apps Script هنا
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbyub8-5-U2KtprYVp1_jWgfmmNB2ls6rwdTVdoELHgWnXP0MPeFDeyhHt7bcOMz_DES/exec";
+
+            try {
+                const response = await fetch(scriptUrl, {
+                    method: "POST",
+                    mode: "no-cors", // تجنب مشكلة CORS
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+                alert("✅ تم الحفظ بنجاح!");
+            } catch (error) {
+                console.error("❌ حدث خطأ أثناء الإرسال:", error);
+                alert("❌ حدث خطأ أثناء الإرسال.");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>صيدليات الحراسة</title>
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>صيدليات الحراسة</h1>
+    <div id="pharmacies-container">جارِ التحميل...</div>
+
+    <script>
+        async function fetchPharmacies() {
+            const apiUrl = "https://script.google.com/macros/s/AKfycbyub8-5-U2KtprYVp1_jWgfmmNB2ls6rwdTVdoELHgWnXP0MPeFDeyhHt7bcOMz_DES/exec"; // ضع رابط التطبيق هنا
+
+            try {
+                const response = await fetch(apiUrl);
+                const pharmacies = await response.json();
+
+                const container = document.getElementById('pharmacies-container');
+                container.innerHTML = '';
+
+                pharmacies.forEach(pharmacy => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h2>${pharmacy.name}</h2>
+                        <p>العنوان: ${pharmacy.address}</p>
+                        <p>الهاتف: ${pharmacy.phone}</p>
+                        <a href="${pharmacy.map}" target="_blank">فتح الموقع في الخريطة</a>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('pharmacies-container').innerText = 'حدث خطأ أثناء تحميل البيانات.';
+                console.error(error);
+            }
+        }
+
+        fetchPharmacies();
+    </script>
+</body>
+</html>
+

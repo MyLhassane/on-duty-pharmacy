@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>صيدليات المناوبة مكناس المنزه</title>
+    <script>
+        async function redirectToLatest() {
+            const basePath = "/";
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const todayPath = `${basePath}${year}/${month}/${day}/index.html`;
+
+            try {
+                const response = await fetch(todayPath);
+                if (response.ok) {
+                    // التوجيه إلى أحدث صفحة
+                    window.location.href = todayPath;
+                } else {
+                    console.warn("لم يتم العثور على صفحة اليوم، التوجيه إلى القائمة.");
+                    window.location.href = "/";
+                }
+            } catch (error) {
+                console.error("خطأ أثناء التحقق:", error);
+                window.location.href = "/";
+            }
+        }
+
+        window.onload = redirectToLatest;
+    </script>
+</head>
+
+<body>
+    <h1>جارٍ توجيهك إلى أحدث صيدلية مناوبة...</h1>
+</body>
+
+</html>

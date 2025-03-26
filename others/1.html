@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>إضافة صيدلية</title>
+</head>
+<body>
+    <h1>إضافة صيدلية جديدة</h1>
+    <form id="pharmacyForm">
+        <label>اسم الصيدلية:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>العنوان:</label>
+        <input type="text" id="address" required><br><br>
+
+        <label>الهاتف:</label>
+        <input type="text" id="phone" required><br><br>
+
+        <label>رابط الخريطة:</label>
+        <input type="url" id="map" required><br><br>
+
+        <button type="submit">حفظ</button>
+    </form>
+
+    <script>
+        document.getElementById('pharmacyForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // استخراج البيانات من النموذج
+            const newPharmacy = {
+                name: document.getElementById('name').value,
+                address: document.getElementById('address').value,
+                phone: document.getElementById('phone').value,
+                map: document.getElementById('map').value
+            };
+
+            // قراءة البيانات القديمة من JSON (من المفترض إدخالها يدويًا لاحقًا)
+            let pharmacies = [newPharmacy];
+
+            // إنشاء ملف JSON للتنزيل
+            const blob = new Blob([JSON.stringify(pharmacies, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pharmacies.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

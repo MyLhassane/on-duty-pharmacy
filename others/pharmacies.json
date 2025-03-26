@@ -1,0 +1,20 @@
+[
+  {
+    "name": "صيدلية السلام",
+    "address": "شارع محمد الخامس، مكناس",
+    "phone": "0600123456",
+    "map": "https://maps.google.com/?q=33.8960,-5.5345"
+  },
+  {
+    "name": "صيدلية الأمل",
+    "address": "حي الرياض، الرباط",
+    "phone": "0600987654",
+    "map": "https://maps.google.com/?q=34.0209,-6.8416"
+  },
+  {
+    "name": "La Raj Al Alaoui My Lhassane",
+    "address": "Hay Al Horia No 88 BMO",
+    "phone": "766727980",
+    "mapLink": "http://127.0.0.1:5500/admin.html"
+  }
+]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة صيدلية</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>إضافة صيدلية جديدة</h1>
+
+    <form id="pharmacyForm">
+        <label>اسم الصيدلية: <input type="text" id="name" required></label><br>
+        <label>العنوان: <input type="text" id="address" required></label><br>
+        <label>الهاتف: <input type="tel" id="phone" required></label><br>
+        <label>رابط الموقع: <input type="url" id="mapLink" required></label><br>
+
+        <button type="submit">إضافة</button>
+    </form>
+
+    <script>
+        document.getElementById('pharmacyForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const pharmacy = {
+                name: document.getElementById('name').value,
+                address: document.getElementById('address').value,
+                phone: document.getElementById('phone').value,
+                mapLink: document.getElementById('mapLink').value
+            };
+
+            try {
+                const response = await fetch('data/pharmacies.json');
+                const pharmacies = await response.json();
+
+                pharmacies.push(pharmacy);
+
+                const blob = new Blob([JSON.stringify(pharmacies, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'pharmacies.json';
+                a.click();
+
+                alert('تمت إضافة الصيدلية! قم باستبدال الملف في مجلد data.');
+            } catch (error) {
+                alert('حدث خطأ أثناء تحديث البيانات: ' + error);
+            }
+        });
+    </script>
+</body>
+</html>
